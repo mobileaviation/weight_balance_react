@@ -34,7 +34,7 @@ class Aircraft {
 
     getAircraftByCallSign(callsign)
     {
-        console.log("return aircraft");
+        console.log("return aircraft by callsign");
         this.data = {
             callsign: 'PH-DRT',
             type: 'P28A',
@@ -54,6 +54,19 @@ class Aircraft {
             mtowFwd: 88.6,
             maxUtilW: 2130.0,
         };
+
+        this.weightStart = this._getWeightStart();
+        this.weightEnd = this._getWeightEnd();
+        this.cgStart = this._getCGStart();
+        this.cgEnd = this._getCGEnd();
+
+        return this.data;
+    }
+
+    getAircraftByData(aircraftData)
+    {
+        console.log("return aircraft by data");
+        this.data = aircraftData;
 
         this.weightStart = this._getWeightStart();
         this.weightEnd = this._getWeightEnd();

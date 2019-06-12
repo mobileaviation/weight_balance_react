@@ -3,10 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
-
-
-
-class WBTable extends React.Component {
+class WBOutputTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -46,4 +43,4 @@ class WBTable extends React.Component {
     }
 }
 
-export default WBTable;
+export default WBOutputTable;

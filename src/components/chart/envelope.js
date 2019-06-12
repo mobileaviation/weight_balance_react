@@ -6,8 +6,8 @@ class Envelope extends React.Component {
     {
         super(props)
         this.props = {
-            width: 400,
-            height: 400,
+            width: 0,
+            height: 0,
             aircraft : {}
         };
     }
@@ -51,15 +51,16 @@ class Envelope extends React.Component {
         let pos3 = this.calculatePos(this.props.aircraft.data.mtow, this.props.aircraft.data.aft);
         let pos4 = this.calculatePos(this.props.aircraft.data.mtow, this.props.aircraft.data.mtowFwd);
         let pos5 = this.calculatePos(this.props.aircraft.data.fwdW, this.props.aircraft.data.fwd);
-        
-        let util_fwd = this.props.aircraft.data.fwd + ((this.props.aircraft.data.mtow-this.props.aircraft.data.fwdW) / 
-            ((this.props.aircraft.data.maxUtilW-this.props.aircraft.data.fwdW) * 
-            (this.props.aircraft.data.mtowFwd-this.props.aircraft.data.fwd)));
+
+        let a = this.props.aircraft.data.mtow - this.props.aircraft.data.fwdW;
+        let b = this.props.aircraft.data.mtowFwd - this.props.aircraft.data.fwd;
+        let d = this.props.aircraft.data.maxUtilW - this.props.aircraft.data.fwdW;
+        let util_fwd = (b / a) * d;
+        util_fwd = this.props.aircraft.data.fwd + util_fwd;
 
         let pos7 = this.calculatePos(this.props.aircraft.data.maxUtilW, util_fwd);
         let pos8 = this.calculatePos(this.props.aircraft.data.maxUtilW, this.props.aircraft.data.aft);
         
-
         return(
             <Group>
                 <Text

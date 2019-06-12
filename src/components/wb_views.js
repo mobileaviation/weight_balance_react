@@ -1,13 +1,15 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import WBChart from './components/wb-chart';
-import WBTable from './components/wb_table';
+import WBChart from './chart/wb-chart';
+//import WBOutputTable from './wb_outputtable';
+//import Pagination from 'd'
 
 const styles = {
   slide: {
     padding: 15,
     minHeight: 100,
     color: '#fff',
+    width: 400
   },
   slide1: {
     background: '#FEA900',
@@ -26,26 +28,29 @@ class WBViews extends React.Component
   {
     super(props);
         this.props = {
-            width: 400,
-            height: 400,
+            width: 0,
+            height: 0,
             aircraft: {}
         };
   }
 
   render() {
     return (
+      <div>
       <SwipeableViews enableMouseEvents>
         <div>
           <WBChart
-                width = {this.props.width}
-                height = {this.props.height}
-                aircraft = {this.props.aircraft}
-              />
+            width = {this.props.width}
+            height = {this.props.height}
+            aircraft = {this.props.aircraft}
+          />
         </div>
         <div>
-          <WBTable />
+          Dit is een test
         </div>
       </SwipeableViews>
+      {/* <Pagination dots={3} /> */}
+      </div>
     );
   }
 

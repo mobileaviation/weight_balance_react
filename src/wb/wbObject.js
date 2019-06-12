@@ -47,9 +47,19 @@ export class wbInItem {
         if (this.unit===WBUnit.ltr) return Convert.LtrToLbsAvGas(this.value);
     }
 
+    set lbs(value) {
+        if (this.unit===WBUnit.lbs) this.value = value;
+        if (this.unit===WBUnit.kg) this.value = Convert.LbsToKg(value);
+    }
+
     get liter() {
         if (this.unit===WBUnit.ltr) return this.value;
         if (this.unit===WBUnit.usg) return Convert.GalToLiter(this.value);
+    }
+
+    set liter(value) {
+        if (this.unit===WBUnit.ltr) this.value = value;
+        if (this.unit===WBUnit.usg) this.value = Convert.LiterToGal(value);
     }
 
     get kilo() {
@@ -57,25 +67,48 @@ export class wbInItem {
         if (this.unit===WBUnit.lbs) return Convert.LbsToKg(this.value);
     }
 
+    set kilo(value) {
+        if (this.unit===WBUnit.lbs) this.value = Convert.KgToLbs(value)
+        if (this.unit===WBUnit.kg) this.value = value;
+    }
+
     get usg() {
         if (this.unit===WBUnit.usg) return this.value;
-        if (this.unit===WBUnit.ltr) return Convert.LiterToGal(this.value);
+        if (this.unit===WBUnit.ltr) return Convert.GalToLiter(this.value);
+    }
+
+    set usg(value) {
+        if (this.unit===WBUnit.ltr) this.value = Convert.LiterToGal(value)
+        if (this.unit===WBUnit.usg) this.value = value;
     }
 }
 
 export function getWBTestInObjects()
 {
     var wbobjects = [];
+    var storedWbObjects = JSON.parse(localStorage.getItem("WBObject"));
 
-    wbobjects.push(new wbInItem("Pilot", 74, WBType.person, WBUnit.kg));
-    wbobjects.push(new wbInItem("CoPilot", 103, WBType.person, WBUnit.kg));
-    wbobjects.push(new wbInItem("Passenger 1", 0, WBType.person, WBUnit.kg));
-    wbobjects.push(new wbInItem("Passenger 2", 0, WBType.person, WBUnit.kg));
-    wbobjects.push(new wbInItem("Baggage", 15, WBType.bagage, WBUnit.kg));
-    wbobjects.push(new wbInItem("Baggage2", 0, WBType.bagage, WBUnit.kg));
-    wbobjects.push(new wbInItem("Total fuel", 40, WBType.fuel, WBUnit.usg));
-    wbobjects.push(new wbInItem("Taxi fuel", 1, WBType.fuel, WBUnit.usg));
-    wbobjects.push(new wbInItem("Flight fuel", 10, WBType.fuel, WBUnit.usg));
+    if (storedWbObjects !== null) {
+        storedWbObjects.forEach(element => {
+            wbobjects.push(new wbInItem(element.name, element.value, element.type, element.unit));
+        });
+    }
+
+    if (storedWbObjects === null) {
+
+        wbobjects.push(new wbInItem("Pilot", 74, WBType.person, WBUnit.kg));
+        wbobjects.push(new wbInItem("CoPilot", 103, WBType.person, WBUnit.kg));
+        wbobjects.push(new wbInItem("Passenger 1", 0, WBType.person, WBUnit.kg));
+        wbobjects.push(new wbInItem("Passenger 2", 0, WBType.person, WBUnit.kg));
+        wbobjects.push(new wbInItem("Baggage", 15, WBType.bagage, WBUnit.kg));
+        wbobjects.push(new wbInItem("Baggage2", 0, WBType.bagage, WBUnit.kg));
+        wbobjects.push(new wbInItem("Total fuel", 40, WBType.fuel, WBUnit.usg));
+        wbobjects.push(new wbInItem("Max fuel", 48, WBType.fuel, WBUnit.usg));
+        wbobjects.push(new wbInItem("Taxi fuel", 1, WBType.fuel, WBUnit.usg));
+        wbobjects.push(new wbInItem("Flight fuel", 10, WBType.fuel, WBUnit.usg));
+
+        localStorage.setItem("WBObject", JSON.stringify(wbobjects));
+    }
 
     return wbobjects;
 }

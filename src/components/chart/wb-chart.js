@@ -9,8 +9,8 @@ class WBChart extends React.Component
     {
         super(props);
         this.props = {
-            width: 400,
-            height: 400,
+            width: 0,
+            height: 0,
             aircraft: {}
         };
     }
